@@ -11,10 +11,10 @@ namespace DFinalPed
     {
         private Grafo grafo;
         private TablaHash tablaHash;
-        private ComboBox cmbOrigen;
-        private ComboBox cmbDestino;
-        private RichTextBox txtResultados;
-        private MapaCampusPanel mapaPanel;
+        private ComboBox cmbOrigen = null!;
+        private ComboBox cmbDestino = null!;
+        private RichTextBox txtResultados = null!;
+        private MapaCampusPanel mapaPanel = null!;
 
         public MainForm()
         {
@@ -177,7 +177,7 @@ namespace DFinalPed
         {
             for (int i = 0; i < combo.Items.Count; i++)
             {
-                EdificioItem item = (EdificioItem)combo.Items[i];
+                EdificioItem item = (EdificioItem)combo.Items[i]!;
 
                 if (item.Clave.ToUpper() == clave.ToUpper())
                 {
@@ -194,12 +194,12 @@ namespace DFinalPed
 
         private string ObtenerOrigenSeleccionado()
         {
-            return ((EdificioItem)cmbOrigen.SelectedItem).Clave;
+            return ((EdificioItem)cmbOrigen.SelectedItem!).Clave;
         }
 
         private string ObtenerDestinoSeleccionado()
         {
-            return ((EdificioItem)cmbDestino.SelectedItem).Clave;
+            return ((EdificioItem)cmbDestino.SelectedItem!).Clave;
         }
 
         private void MostrarMensajeInicial()
@@ -214,14 +214,14 @@ namespace DFinalPed
             mapaPanel.LimpiarEstado();
         }
 
-        private void BtnGrafo_Click(object sender, EventArgs e)
+        private void BtnGrafo_Click(object? sender, EventArgs e)
         {
             string salida = grafo.MostrarGrafo();
             txtResultados.Text = salida;
             mapaPanel.LimpiarEstado();
         }
 
-        private void BtnBfs_Click(object sender, EventArgs e)
+        private void BtnBfs_Click(object? sender, EventArgs e)
         {
             string origen = ObtenerOrigenSeleccionado();
             string salida = grafo.RecorridoBFS(origen);
@@ -236,7 +236,7 @@ namespace DFinalPed
             mapaPanel.EstablecerEstado(grafo.UltimasVisitas, new List<string>(), origen, string.Empty);
         }
 
-        private void BtnDfs_Click(object sender, EventArgs e)
+        private void BtnDfs_Click(object? sender, EventArgs e)
         {
             string origen = ObtenerOrigenSeleccionado();
             string destino = ObtenerDestinoSeleccionado();
@@ -252,12 +252,12 @@ namespace DFinalPed
             mapaPanel.EstablecerEstado(grafo.UltimasVisitas, grafo.UltimoCamino, origen, destino);
         }
 
-        private void BtnHash_Click(object sender, EventArgs e)
+        private void BtnHash_Click(object? sender, EventArgs e)
         {
             txtResultados.Text = tablaHash.MostrarEstadisticas();
         }
 
-        private void BtnHeap_Click(object sender, EventArgs e)
+        private void BtnHeap_Click(object? sender, EventArgs e)
         {
             MinHeap heap = new MinHeap();
             List<Camino> rutas = grafo.ObtenerTodosLosCaminosUnicos();
@@ -277,7 +277,7 @@ namespace DFinalPed
             txtResultados.Text = salida.ToString();
         }
 
-        private void BtnReiniciar_Click(object sender, EventArgs e)
+        private void BtnReiniciar_Click(object? sender, EventArgs e)
         {
             grafo = Grafo.CrearCampusPorDefecto();
             tablaHash = new TablaHash();
